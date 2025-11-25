@@ -116,19 +116,17 @@ class SwipeViewModel: ObservableObject {
     // MARK: - Gestures
     func onDragChanged(_ value: DragGesture.Value) {
         dragOffset = value.translation
-        dragRotation = Double(value.translation.width) * 0.05
+        dragRotation = Double(value.translation.width) * SwipeConstants.rotationMultiplier
 
         // Light haptic feedback when crossing threshold
-        let threshold: CGFloat = 100
         let distance = abs(value.translation.width)
-        if distance > threshold - 10 && distance < threshold + 10 {
+        if distance > SwipeConstants.threshold - SwipeConstants.thresholdWindow && distance < SwipeConstants.threshold + SwipeConstants.thresholdWindow {
             selectionFeedback.selectionChanged()
         }
     }
 
     func onDragEnded(_ value: DragGesture.Value) async {
-        let threshold: CGFloat = 100
-        let isSwipeComplete = abs(value.translation.width) >= threshold
+        let isSwipeComplete = abs(value.translation.width) >= SwipeConstants.threshold
 
         if isSwipeComplete {
             let direction: SwipeDirection = value.translation.width > 0 ? .right : .left
@@ -137,7 +135,7 @@ class SwipeViewModel: ObservableObject {
             processSwipe(direction: direction)
         } else {
             // Snap back
-            withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+            withAnimation(.spring(response: SwipeConstants.springResponse, dampingFraction: SwipeConstants.springDamping)) {
                 dragOffset = .zero
                 dragRotation = 0
             }

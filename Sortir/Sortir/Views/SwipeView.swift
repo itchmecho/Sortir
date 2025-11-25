@@ -135,7 +135,7 @@ struct SwipeSessionView: View {
                 VStack(spacing: 16) {
                     ProgressView()
                         .scaleEffect(1.5)
-                    Text("Loading photos...")
+                    Text(UIStrings.loadingPhotos)
                         .foregroundColor(.secondary)
                 }
             } else if viewModel.photos.isEmpty {
@@ -143,7 +143,7 @@ struct SwipeSessionView: View {
                     Image(systemName: "photo.on.rectangle")
                         .font(.system(size: 50))
                         .foregroundColor(.gray)
-                    Text("No photos found")
+                    Text(UIStrings.noPhotosFound)
                         .font(.headline)
 
                     Button("Go Back") {
@@ -155,7 +155,7 @@ struct SwipeSessionView: View {
                 VStack(spacing: 16) {
                     ProgressView()
                         .scaleEffect(1.5)
-                    Text("Organizing your photos...")
+                    Text(UIStrings.organizingPhotos)
                         .foregroundColor(.secondary)
                 }
             } else if viewModel.currentIndex < viewModel.photos.count {

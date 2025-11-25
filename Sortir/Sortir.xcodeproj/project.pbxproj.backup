@@ -28,7 +28,6 @@
 		AA1B00012EDB000000000003 /* WorkflowSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B00012EDB000000000013 /* WorkflowSetupView.swift */; };
 		AA1B00012EDB000000000004 /* ActionConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B00012EDB000000000014 /* ActionConfigView.swift */; };
 		AA1B00012EDB000000000005 /* AlbumPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B00012EDB000000000015 /* AlbumPickerView.swift */; };
-		A11279D258C487439D4EBCBD /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D800B4C32F9DCA70620C4C1 /* AppConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,7 +54,6 @@
 		AA1B00012EDB000000000013 /* WorkflowSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowSetupView.swift; sourceTree = "<group>"; };
 		AA1B00012EDB000000000014 /* ActionConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionConfigView.swift; sourceTree = "<group>"; };
 		AA1B00012EDB000000000015 /* AlbumPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPickerView.swift; sourceTree = "<group>"; };
-		0D800B4C32F9DCA70620C4C1 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,7 +180,6 @@
 				AA1B00012EDB000000000013 /* WorkflowSetupView.swift */,
 				AA1B00012EDB000000000014 /* ActionConfigView.swift */,
 				AA1B00012EDB000000000015 /* AlbumPickerView.swift */,
-				0D800B4C32F9DCA70620C4C1 /* AppConstants.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -276,7 +273,6 @@
 				AA1B00012EDB000000000003 /* WorkflowSetupView.swift in Sources */,
 				AA1B00012EDB000000000004 /* ActionConfigView.swift in Sources */,
 				AA1B00012EDB000000000005 /* AlbumPickerView.swift in Sources */,
-				A11279D258C487439D4EBCBD /* AppConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

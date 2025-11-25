@@ -8,11 +8,6 @@ class PhotosService: ObservableObject {
     @Published var authStatus: PHAuthorizationStatus = .notDetermined
     private let imageManager = PHCachingImageManager()
 
-    // Cache configuration
-    private let thumbnailSize = CGSize(width: 400, height: 600)
-    private let cacheSize = CGSize(width: 800, height: 1200)
-    private let maxCachedAssets = 20
-
     // Track album creation operations to prevent race conditions
     private var albumCreationLock = NSLock()
     private var creatingAlbumNames = Set<String>()
@@ -68,7 +63,7 @@ class PhotosService: ObservableObject {
             // Wait for the other creation to finish, then return it
             albumCreationLock.unlock()
             // Give the other operation time to complete
-            try? await Task.sleep(nanoseconds: 100_000_000) // 100ms
+            try? await Task.sleep(nanoseconds: TimingConstants.albumCreationWaitTime)
             albumCreationLock.lock()
         }
 
@@ -98,10 +93,10 @@ class PhotosService: ObservableObject {
         // Create new album
         albumCreationLock.unlock()
         let album = try await createAlbum(named: title)
-        albumCreationLock.lock()
         return album
     }
 
+    // Create album - internal use, called from findOrCreateAlbum
     func createAlbum(named title: String) async throws -> PHAssetCollection? {
         var album: PHAssetCollection?
 
@@ -149,7 +144,7 @@ class PhotosService: ObservableObject {
     }
 
     // MARK: - Image Loading
-    func loadImage(for asset: PHAsset, targetSize: CGSize = CGSize(width: 400, height: 600)) async -> UIImage? {
+    func loadImage(for asset: PHAsset, targetSize: CGSize = CacheConstants.thumbnailSize) async -> UIImage? {
         return await withCheckedContinuation { continuation in
             let options = PHImageRequestOptions()
             options.isSynchronous = false
@@ -169,13 +164,13 @@ class PhotosService: ObservableObject {
 
     // Start caching images around current index
     func startCachingImages(around assets: [PHAsset], centerIndex: Int) {
-        let startIndex = max(0, centerIndex - 2)
-        let endIndex = min(assets.count - 1, centerIndex + maxCachedAssets - 3)
+        let startIndex = max(0, centerIndex - CacheConstants.cachePaddingBefore)
+        let endIndex = min(assets.count - 1, centerIndex + CacheConstants.cachePaddingAfter)
 
         let assetsToCache = Array(assets[startIndex...endIndex])
         imageManager.startCachingImages(
             for: assetsToCache,
-            targetSize: cacheSize,
+            targetSize: CacheConstants.cacheSize,
             contentMode: .aspectFill,
             options: nil
         )
@@ -183,8 +178,8 @@ class PhotosService: ObservableObject {
 
     // Stop caching images outside the window
     func stopCachingImages(around assets: [PHAsset], centerIndex: Int) {
-        let startIndex = max(0, centerIndex - 5)
-        let endIndex = min(assets.count - 1, centerIndex + maxCachedAssets + 5)
+        let startIndex = max(0, centerIndex - CacheConstants.stopCachingBuffer)
+        let endIndex = min(assets.count - 1, centerIndex + CacheConstants.maxCachedAssets + CacheConstants.stopCachingBuffer)
 
         var imagesToStop: [PHAsset] = []
         // Add assets before start index
@@ -198,7 +193,7 @@ class PhotosService: ObservableObject {
 
         imageManager.stopCachingImages(
             for: imagesToStop,
-            targetSize: cacheSize,
+            targetSize: CacheConstants.cacheSize,
             contentMode: .aspectFill,
             options: nil
         )
@@ -211,8 +206,9 @@ class PhotosService: ObservableObject {
 
     // MARK: - Album Operations
     func createKeepAlbum() async throws -> PHAssetCollection? {
-        return try await findOrCreateAlbum(named: "Sortir Kept")
+        return try await findOrCreateAlbum(named: AlbumConstants.defaultKeepAlbumName)
     }
+
 
     func moveToAlbum(assets: [PHAsset], album: PHAssetCollection) async throws {
         let _: Void = try await withCheckedThrowingContinuation { continuation in
