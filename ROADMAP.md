@@ -50,8 +50,8 @@ Transform photo library organization from tedious folder navigation into a fluid
 
 ---
 
-### ✅ Milestone 3: Critical Bug Fixes & Core Optimization (v0.2.1) - COMPLETE
-**Status**: All P0 issues fixed, ready for P1 improvements and user testing
+### ✅ Milestone 3: Critical Bug Fixes & Core Optimization + P1 Improvements (v0.2.1) - COMPLETE
+**Status**: All P0 + P1 issues fixed, ready for production user testing and P2 code quality work
 
 **Critical Issues (P0 - ✅ FIXED)**:
 1. ✅ **Memory Crash on Large Libraries**
@@ -91,18 +91,17 @@ Transform photo library organization from tedious folder navigation into a fluid
 
 **Build Status**: ✅ Successfully builds for iOS 15+ (iPhone 17 Simulator tested)
 
-**High Priority Issues (P1 - Next iteration)**:
-- Implement Undo/Redo functionality (per spec requirement)
-- Add haptic feedback on swipe threshold and completion
-- Remove fatalError from PersistenceController production code
-- Implement photo deletion confirmation dialog
-- Fix album creation race condition (handle duplicate albums atomically)
+**High Priority Issues (P1 - ✅ COMPLETE)**:
+- ✅ **Undo/Redo functionality**: Full stack-based undo/redo with action history tracking
+- ✅ **Haptic feedback**: Selection, impact, and notification feedback at swipe thresholds
+- ✅ **PersistenceController**: Removed fatalError, added graceful error handling
+- ✅ **Delete confirmation**: Dialog prevents accidental photo deletions
+- ✅ **Album race condition**: Atomic album creation with NSLock prevents duplicates
 
 **Code Quality Issues (P2 - Nice to Have)**:
-- Add haptic feedback with UIImpactFeedbackGenerator
 - Add unit tests for business logic
 - Add documentation comments for public APIs
-- Extract hard-coded strings to constants
+- Extract hard-coded strings to constants (e.g., "Sortir Kept", threshold values)
 - Replace magic numbers with named constants
 - Refactor duplicate views (SessionCompleteView & WorkflowSessionCompleteView)
 - Improve MVVM separation (some views directly call services)
