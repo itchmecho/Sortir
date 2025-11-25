@@ -13,6 +13,10 @@ class PhotosService: ObservableObject {
     private let cacheSize = CGSize(width: 800, height: 1200)
     private let maxCachedAssets = 20
 
+    // Track album creation operations to prevent race conditions
+    private var albumCreationLock = NSLock()
+    private var creatingAlbumNames = Set<String>()
+
     // MARK: - Permissions
     func requestAuthorization() async -> Bool {
         let status = await PHPhotoLibrary.requestAuthorization(for: .readWrite)
@@ -55,7 +59,20 @@ class PhotosService: ObservableObject {
     }
 
     func findOrCreateAlbum(named title: String) async throws -> PHAssetCollection? {
-        // First check if album already exists
+        // Use a lock to ensure atomic album creation
+        albumCreationLock.lock()
+        defer { albumCreationLock.unlock() }
+
+        // Check if already creating this album (prevents duplicate creations)
+        if creatingAlbumNames.contains(title) {
+            // Wait for the other creation to finish, then return it
+            albumCreationLock.unlock()
+            // Give the other operation time to complete
+            try? await Task.sleep(nanoseconds: 100_000_000) // 100ms
+            albumCreationLock.lock()
+        }
+
+        // Check if album already exists
         let existingAlbums = PHAssetCollection.fetchAssetCollections(
             with: .album,
             subtype: .albumRegular,
@@ -74,8 +91,15 @@ class PhotosService: ObservableObject {
             return existing
         }
 
+        // Mark that we're creating this album
+        creatingAlbumNames.insert(title)
+        defer { creatingAlbumNames.remove(title) }
+
         // Create new album
-        return try await createAlbum(named: title)
+        albumCreationLock.unlock()
+        let album = try await createAlbum(named: title)
+        albumCreationLock.lock()
+        return album
     }
 
     func createAlbum(named title: String) async throws -> PHAssetCollection? {

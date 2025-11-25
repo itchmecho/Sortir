@@ -12,7 +12,11 @@ struct PersistenceController {
         }
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+                // Log error instead of crashing - app can still function without persistence
+                print("CoreData Store Error: \(error.localizedDescription)")
+                if let reasons = error.userInfo["NSDebugDescription"] as? [String] {
+                    print("Reasons: \(reasons)")
+                }
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true

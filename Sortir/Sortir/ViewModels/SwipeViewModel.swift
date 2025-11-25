@@ -1,9 +1,17 @@
 import SwiftUI
 import Photos
+import UIKit
 
 enum SwipeDirection {
     case left
     case right
+}
+
+// MARK: - Action History for Undo/Redo
+struct SwipeAction {
+    let photoId: String
+    let direction: SwipeDirection
+    let action: WorkflowAction
 }
 
 @MainActor
@@ -15,6 +23,10 @@ class SwipeViewModel: ObservableObject {
     @Published var isLoading = true
     @Published var isProcessing = false
     @Published var errorMessage: String?
+    @Published var canUndo = false
+    @Published var canRedo = false
+    @Published var showDeleteConfirmation = false
+    @Published var pendingDeleteAction: WorkflowAction?
 
     // Workflow
     var workflow: Workflow?
@@ -32,8 +44,17 @@ class SwipeViewModel: ObservableObject {
     var leftActionCount: Int = 0
     var rightActionCount: Int = 0
 
+    // Undo/Redo history
+    private var undoStack: [SwipeAction] = []
+    private var redoStack: [SwipeAction] = []
+
     private let photosService = PhotosService.shared
     private let coreDataService = CoreDataService.shared
+
+    // Haptic feedback generators
+    private let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+    private let selectionFeedback = UISelectionFeedbackGenerator()
+    private let notificationFeedback = UINotificationFeedbackGenerator()
 
     // MARK: - Lifecycle
     func loadPhotos() async {
@@ -96,6 +117,13 @@ class SwipeViewModel: ObservableObject {
     func onDragChanged(_ value: DragGesture.Value) {
         dragOffset = value.translation
         dragRotation = Double(value.translation.width) * 0.05
+
+        // Light haptic feedback when crossing threshold
+        let threshold: CGFloat = 100
+        let distance = abs(value.translation.width)
+        if distance > threshold - 10 && distance < threshold + 10 {
+            selectionFeedback.selectionChanged()
+        }
     }
 
     func onDragEnded(_ value: DragGesture.Value) async {
@@ -104,6 +132,8 @@ class SwipeViewModel: ObservableObject {
 
         if isSwipeComplete {
             let direction: SwipeDirection = value.translation.width > 0 ? .right : .left
+            // Strong haptic feedback on successful swipe
+            impactFeedback.impactOccurred()
             processSwipe(direction: direction)
         } else {
             // Snap back
@@ -116,13 +146,85 @@ class SwipeViewModel: ObservableObject {
 
     // MARK: - Button Actions
     func performSwipe(direction: SwipeDirection) {
+        // Haptic feedback for button tap
+        impactFeedback.impactOccurred()
         processSwipe(direction: direction)
     }
 
     // MARK: - Swipe Processing
     private func processSwipe(direction: SwipeDirection) {
+        let action = direction == .right ? workflow?.rightAction : workflow?.leftAction
+
+        // Check if this is a delete action - show confirmation
+        if let action = action, action.type == .delete {
+            pendingDeleteAction = action
+            showDeleteConfirmation = true
+            // Don't proceed with the swipe until user confirms
+            return
+        }
+
+        // Proceed with normal swipe processing
+        completeSwipe(direction: direction)
+    }
+
+    func confirmDelete() {
+        guard let currentAction = pendingDeleteAction else { return }
+
+        let currentPhoto = photos[currentIndex]
+        let leftIsDelete = workflow?.leftAction.type == .delete
+        let direction: SwipeDirection = leftIsDelete == true ? .left : .right
+
+        // Record action to undo stack
+        let swipeAction = SwipeAction(photoId: currentPhoto.id, direction: direction, action: currentAction)
+        undoStack.append(swipeAction)
+        redoStack.removeAll()
+        updateUndoRedoState()
+
+        // Track count
+        if direction == .left {
+            leftActionCount += 1
+        } else {
+            rightActionCount += 1
+        }
+
+        // Save to CoreData
+        if let sessionId = sessionId {
+            coreDataService.saveResult(
+                assetId: currentPhoto.id,
+                direction: direction == .right ? "right" : "left",
+                action: currentAction.type.rawValue,
+                sessionId: sessionId
+            )
+        }
+
+        // Add asset to delete collection
+        deletedAssets.append(currentPhoto.asset)
+
+        // Advance to next photo
+        advanceToNextPhoto()
+
+        // Clear confirmation state
+        showDeleteConfirmation = false
+        pendingDeleteAction = nil
+    }
+
+    func cancelDelete() {
+        showDeleteConfirmation = false
+        pendingDeleteAction = nil
+        // Snap back animation is already handled
+    }
+
+    private func completeSwipe(direction: SwipeDirection) {
         let currentPhoto = photos[currentIndex]
         let action = direction == .right ? workflow?.rightAction : workflow?.leftAction
+
+        // Record action to undo stack
+        if let action = action {
+            let swipeAction = SwipeAction(photoId: currentPhoto.id, direction: direction, action: action)
+            undoStack.append(swipeAction)
+            redoStack.removeAll()  // Clear redo when making new action
+            updateUndoRedoState()
+        }
 
         // Track count
         if direction == .left {
@@ -153,6 +255,11 @@ class SwipeViewModel: ObservableObject {
             }
         }
 
+        // Advance to next photo
+        advanceToNextPhoto()
+    }
+
+    private func advanceToNextPhoto() {
         // Advance to next photo
         if currentIndex < photos.count - 1 {
             currentIndex += 1
@@ -209,6 +316,9 @@ class SwipeViewModel: ObservableObject {
 
         // Clean up cache after session
         photosService.stopCachingAllImages()
+
+        // Success haptic feedback
+        notificationFeedback.notificationOccurred(.success)
     }
 
     // MARK: - Photos App Integration
@@ -248,11 +358,87 @@ class SwipeViewModel: ObservableObject {
                 self.isProcessing = false
             }
         } catch {
+            // Error haptic feedback
+            notificationFeedback.notificationOccurred(.error)
             await MainActor.run {
                 self.isProcessing = false
                 self.errorMessage = "Error organizing photos: \(error.localizedDescription)"
             }
         }
+    }
+
+    // MARK: - Undo/Redo
+
+    func undo() {
+        guard !undoStack.isEmpty else { return }
+
+        let lastAction = undoStack.removeLast()
+        redoStack.append(lastAction)
+        reverseAction(lastAction)
+        updateUndoRedoState()
+    }
+
+    func redo() {
+        guard !redoStack.isEmpty else { return }
+
+        let action = redoStack.removeLast()
+        undoStack.append(action)
+        reapplyAction(action)
+        updateUndoRedoState()
+    }
+
+    private func reverseAction(_ action: SwipeAction) {
+        // Find the asset and remove it from the appropriate collection
+        let asset = photos.first(where: { $0.id == action.photoId })?.asset
+
+        switch action.action.type {
+        case .keep:
+            if let index = keptAssets.firstIndex(where: { $0.localIdentifier == asset?.localIdentifier }) {
+                keptAssets.remove(at: index)
+            }
+        case .delete:
+            if let index = deletedAssets.firstIndex(where: { $0.localIdentifier == asset?.localIdentifier }) {
+                deletedAssets.remove(at: index)
+            }
+        case .favorite:
+            if let index = favoritedAssets.firstIndex(where: { $0.localIdentifier == asset?.localIdentifier }) {
+                favoritedAssets.remove(at: index)
+            }
+        case .moveToAlbum:
+            if let albumId = action.action.albumId {
+                if let index = albumAssets[albumId]?.firstIndex(where: { $0.localIdentifier == asset?.localIdentifier }) {
+                    albumAssets[albumId]?.remove(at: index)
+                }
+            }
+        case .skip:
+            break
+        }
+
+        // Decrement action count based on direction
+        if action.direction == .left {
+            leftActionCount = max(0, leftActionCount - 1)
+        } else {
+            rightActionCount = max(0, rightActionCount - 1)
+        }
+    }
+
+    private func reapplyAction(_ action: SwipeAction) {
+        // Find the asset and re-add it to the appropriate collection
+        if let asset = photos.first(where: { $0.id == action.photoId })?.asset {
+            categorizeAsset(asset, for: action.action)
+
+            // Increment action count based on direction
+            if action.direction == .left {
+                leftActionCount += 1
+            } else {
+                rightActionCount += 1
+            }
+        }
+    }
+
+    private func updateUndoRedoState() {
+        canUndo = !undoStack.isEmpty
+        canRedo = !redoStack.isEmpty
     }
 
     // MARK: - Summary Helpers
