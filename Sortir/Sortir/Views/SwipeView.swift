@@ -281,10 +281,11 @@ struct SwipeSessionView: View {
                 }
             } else {
                 // Session complete
-                WorkflowSessionCompleteView(
-                    workflow: workflow,
+                UnifiedSessionCompleteView(
                     leftCount: viewModel.leftActionCount,
                     rightCount: viewModel.rightActionCount,
+                    leftAction: workflow.leftAction,
+                    rightAction: workflow.rightAction,
                     onDone: { dismiss() }
                 )
             }
@@ -442,9 +443,11 @@ struct SwipeView: View {
                         .foregroundColor(.secondary)
                 }
             } else {
-                SessionCompleteView(
-                    kept: viewModel.keptAssets.count,
-                    deleted: viewModel.deletedAssets.count,
+                UnifiedSessionCompleteView(
+                    leftCount: viewModel.deletedAssets.count,
+                    rightCount: viewModel.keptAssets.count,
+                    leftAction: .delete(),
+                    rightAction: .keep(),
                     onDone: {
                         // Reset and go back
                     }
@@ -467,277 +470,6 @@ struct SwipeView: View {
     }
 }
 
-struct SessionCompleteView: View {
-    let kept: Int
-    let deleted: Int
-    let onDone: () -> Void
-
-    private var total: Int { kept + deleted }
-
-    private var cheekyMessage: (title: String, subtitle: String) {
-        let ratio = total > 0 ? Double(deleted) / Double(total) : 0
-
-        if deleted == 0 {
-            return ("Sentimental, huh?", "You kept everything. No judgment... okay, maybe a little.")
-        } else if kept == 0 {
-            return ("Scorched Earth!", "You deleted everything. Ruthless. We respect it.")
-        } else if ratio > 0.8 {
-            return ("Marie Kondo Mode", "Those photos did NOT spark joy.")
-        } else if ratio > 0.5 {
-            return ("Balanced, as all things should be", "Thanos would be proud of your decisiveness.")
-        } else if ratio < 0.2 {
-            return ("The Collector", "Keeping the memories alive! All of them. Every. Single. One.")
-        } else {
-            let messages = [
-                ("Nice work!", "Your camera roll thanks you."),
-                ("Swipe game strong!", "That was satisfying, wasn't it?"),
-                ("All done!", "Time well spent. Probably."),
-                ("Photos: Sorted", "You're basically a professional organizer now."),
-                ("Boom. Done.", "Your storage space sends its regards.")
-            ]
-            return messages.randomElement() ?? messages[0]
-        }
-    }
-
-    var body: some View {
-        VStack(spacing: 24) {
-            Spacer()
-
-            // Fun icon based on results
-            Image(systemName: deleted > kept ? "flame.fill" : "heart.fill")
-                .font(.system(size: 70))
-                .foregroundStyle(
-                    LinearGradient(
-                        colors: deleted > kept ? [.orange, .red] : [.pink, .purple],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-
-            VStack(spacing: 8) {
-                Text(cheekyMessage.title)
-                    .font(.title.bold())
-                    .multilineTextAlignment(.center)
-
-                Text(cheekyMessage.subtitle)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
-            }
-
-            // Stats card
-            VStack(spacing: 12) {
-                HStack {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(.green)
-                    Text("Kept")
-                    Spacer()
-                    Text("\(kept)")
-                        .font(.title3.bold())
-                }
-
-                Divider()
-
-                HStack {
-                    Image(systemName: "trash.fill")
-                        .foregroundColor(.red)
-                    Text("Deleted")
-                    Spacer()
-                    Text("\(deleted)")
-                        .font(.title3.bold())
-                }
-
-                Divider()
-
-                HStack {
-                    Image(systemName: "photo.stack")
-                        .foregroundColor(.blue)
-                    Text("Total sorted")
-                    Spacer()
-                    Text("\(total)")
-                        .font(.title3.bold())
-                }
-            }
-            .padding(16)
-            .background(.ultraThinMaterial)
-            .cornerRadius(16)
-            .padding(.horizontal, 20)
-
-            Spacer()
-
-            Button(action: onDone) {
-                Text("Back to Home")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(16)
-                    .background(
-                        LinearGradient(
-                            colors: [.blue, .purple],
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                    )
-                    .cornerRadius(14)
-            }
-            .padding(.horizontal, 20)
-
-            Spacer()
-                .frame(height: 40)
-        }
-    }
-}
-
-// MARK: - Workflow Session Complete View
-struct WorkflowSessionCompleteView: View {
-    let workflow: Workflow
-    let leftCount: Int
-    let rightCount: Int
-    let onDone: () -> Void
-
-    private var total: Int { leftCount + rightCount }
-
-    private var cheekyMessage: (title: String, subtitle: String) {
-        // Check for specific action types to customize messages
-        let leftType = workflow.leftAction.type
-        let rightType = workflow.rightAction.type
-
-        // If one is delete, check deletion ratio
-        if leftType == .delete || rightType == .delete {
-            let deleteCount = leftType == .delete ? leftCount : rightCount
-            let keepCount = leftType == .delete ? rightCount : leftCount
-
-            if deleteCount == 0 {
-                return ("Sentimental, huh?", "You kept everything. No judgment... okay, maybe a little.")
-            } else if keepCount == 0 {
-                return ("Scorched Earth!", "You deleted everything. Ruthless. We respect it.")
-            }
-
-            let deleteRatio = total > 0 ? Double(deleteCount) / Double(total) : 0
-            if deleteRatio > 0.8 {
-                return ("Marie Kondo Mode", "Those photos did NOT spark joy.")
-            } else if deleteRatio < 0.2 {
-                return ("The Collector", "Keeping the memories alive! All of them.")
-            }
-        }
-
-        // If sorting into albums
-        if leftType == .moveToAlbum || rightType == .moveToAlbum {
-            return ("Organized!", "Your albums are looking fresh.")
-        }
-
-        // If favoriting
-        if leftType == .favorite || rightType == .favorite {
-            let favoriteCount = leftType == .favorite ? leftCount : rightCount
-            if favoriteCount > total / 2 {
-                return ("Favorites Overload!", "You really love your photos.")
-            }
-        }
-
-        // Generic messages
-        let messages = [
-            ("Nice work!", "Your camera roll thanks you."),
-            ("Swipe game strong!", "That was satisfying, wasn't it?"),
-            ("All done!", "Time well spent. Probably."),
-            ("Photos: Sorted", "You're basically a professional organizer now."),
-            ("Boom. Done.", "Your storage space sends its regards.")
-        ]
-        return messages.randomElement() ?? messages[0]
-    }
-
-    var body: some View {
-        VStack(spacing: 24) {
-            Spacer()
-
-            // Fun icon
-            Image(systemName: "checkmark.seal.fill")
-                .font(.system(size: 70))
-                .foregroundStyle(
-                    LinearGradient(
-                        colors: [.blue, .purple],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-
-            VStack(spacing: 8) {
-                Text(cheekyMessage.title)
-                    .font(.title.bold())
-                    .multilineTextAlignment(.center)
-
-                Text(cheekyMessage.subtitle)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
-            }
-
-            // Stats card - dynamic based on workflow
-            VStack(spacing: 12) {
-                // Left action stats
-                HStack {
-                    Image(systemName: workflow.leftAction.icon)
-                        .foregroundColor(workflow.leftAction.color)
-                    Text(workflow.leftAction.displayName)
-                    Spacer()
-                    Text("\(leftCount)")
-                        .font(.title3.bold())
-                }
-
-                Divider()
-
-                // Right action stats
-                HStack {
-                    Image(systemName: workflow.rightAction.icon)
-                        .foregroundColor(workflow.rightAction.color)
-                    Text(workflow.rightAction.displayName)
-                    Spacer()
-                    Text("\(rightCount)")
-                        .font(.title3.bold())
-                }
-
-                Divider()
-
-                // Total
-                HStack {
-                    Image(systemName: "photo.stack")
-                        .foregroundColor(.blue)
-                    Text("Total sorted")
-                    Spacer()
-                    Text("\(total)")
-                        .font(.title3.bold())
-                }
-            }
-            .padding(16)
-            .background(.ultraThinMaterial)
-            .cornerRadius(16)
-            .padding(.horizontal, 20)
-
-            Spacer()
-
-            Button(action: onDone) {
-                Text("Back to Home")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(16)
-                    .background(
-                        LinearGradient(
-                            colors: [.blue, .purple],
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                    )
-                    .cornerRadius(14)
-            }
-            .padding(.horizontal, 20)
-
-            Spacer()
-                .frame(height: 40)
-        }
-    }
-}
 
 #Preview {
     SwipeView()

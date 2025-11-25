@@ -98,27 +98,39 @@ Transform photo library organization from tedious folder navigation into a fluid
 - ✅ **Delete confirmation**: Dialog prevents accidental photo deletions
 - ✅ **Album race condition**: Atomic album creation with NSLock prevents duplicates
 
-**Code Quality Issues (P2 - Code Cleanup & Testing) - ~4-6 hours**:
-- Add unit tests for business logic (SwipeViewModel, PhotosService, CoreDataService)
-- Add documentation comments for public APIs (/// doc comments)
-- Extract hard-coded strings to constants:
-  - "Sortir Kept" album name
-  - "Organizing your photos..." progress text
-  - Threshold values (100pt swipe, 10-20 photo cache)
-- Replace magic numbers with named constants:
-  - `SWIPE_THRESHOLD = 100`
-  - `CACHE_SIZE_WIDTH/HEIGHT = 800x1200`
-  - `MAX_CACHED_ASSETS = 20`
-  - Haptic feedback thresholds
-- Refactor duplicate views:
-  - SessionCompleteView & WorkflowSessionCompleteView (consolidate logic)
-  - Extract cheeky message generation to shared utility
-- Improve MVVM separation:
-  - Some views directly call services (PhotosService, CoreDataService)
-  - Consider view model abstraction for service calls
-- Consider dependency injection instead of singleton pattern:
-  - PhotosService.shared, CoreDataService.shared, PersistenceController.shared
-  - Could use initializer injection for better testability
+**Code Quality Issues (P2 - Code Cleanup & Testing) - ~11-12 hours** ✅ IN PROGRESS:
+
+**Phase 1: Constants Extraction (3h)** ✅ COMPLETE:
+- ✅ Created AppConstants.swift with centralized constants
+- ✅ Replaced 150+ magic numbers/strings with named constants
+- ✅ Updated SwipeViewModel, PhotosService, SwipeView to use AppConstants
+- Build: ✅ Successful (0 errors, 5 warnings)
+
+**Phase 2: Consolidate Duplicate Views (2h)** 🔄 IN PROGRESS:
+- Extract SessionMessageGenerator utility (cheeky message logic)
+- Create unified SessionCompleteView component
+- Remove 170 lines of duplicate code from SwipeView
+- Risk: LOW - Visual changes only
+
+**Phase 3: Add Documentation (2h)** ⏳ PENDING:
+- Add /// doc comments to SwipeViewModel (core business logic)
+- Document PhotosService (Photos framework integration)
+- Document CoreDataService (data persistence)
+- Document WorkflowAction (model definitions)
+
+**Phase 4: Test Infrastructure + Critical Tests (4-5h)** ⏳ PENDING:
+- Minimal DI for SwipeViewModel (testability without refactoring other views)
+- Create test infrastructure (SortirTests.swift, TestUtilities.swift)
+- Write critical tests for undo/redo logic only (most complex, highest risk)
+- Write simple model tests (ActionType enum properties)
+- Skip: Comprehensive coverage, PhotosService tests, UI tests (diminishing returns)
+
+**Strategic P2 Approach** (vs Full P2):
+- ✅ Focused on App Store readiness, not perfection
+- ✅ High-value improvements: removes duplicates, adds safety net for fragile code
+- ✅ Manageable timeline: 11-12 hours vs 20+
+- ✅ Low risk: minimal architecture changes
+- ✅ Learning: introduces unit testing basics without overwhelming
 
 ---
 
