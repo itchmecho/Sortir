@@ -90,8 +90,10 @@ class SwipeViewModel: ObservableObject {
     /// Stack-based redo history; stores undone actions
     private var redoStack: [SwipeAction] = []
 
-    private let photosService = PhotosService.shared
-    private let coreDataService = CoreDataService.shared
+    /// Photos service for library access (injected for testability)
+    private let photosService: PhotosService
+    /// CoreData service for persistence (injected for testability)
+    private let coreDataService: CoreDataService
 
     /// Haptic feedback for swipe completion
     private let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
@@ -99,6 +101,20 @@ class SwipeViewModel: ObservableObject {
     private let selectionFeedback = UISelectionFeedbackGenerator()
     /// Haptic feedback for session completion or errors
     private let notificationFeedback = UINotificationFeedbackGenerator()
+
+    // MARK: - Initialization
+
+    /// Initializes the SwipeViewModel with optional dependency injection
+    /// - Parameters:
+    ///   - photosService: PhotosService instance (defaults to shared instance for production)
+    ///   - coreDataService: CoreDataService instance (defaults to shared instance for production)
+    init(
+        photosService: PhotosService = PhotosService.shared,
+        coreDataService: CoreDataService = CoreDataService.shared
+    ) {
+        self.photosService = photosService
+        self.coreDataService = coreDataService
+    }
 
     // MARK: - Lifecycle
 
