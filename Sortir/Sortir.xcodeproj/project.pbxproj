@@ -9,9 +9,6 @@
 /* Begin PBXBuildFile section */
 		0B1A00001A2A3A4A5A6A7A8A /* SortirApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1A00101A2A3A4A5A6A7A8A /* SortirApp.swift */; };
 		0B1A00011A2A3A4A5A6A7A8A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1A00111A2A3A4A5A6A7A8A /* ContentView.swift */; };
-		0B1A00021A2A3A4A5A6A7A8A /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1A00121A2A3A4A5A6A7A8A /* PersistenceController.swift */; };
-		0B1A00031A2A3A4A5A6A7A8A /* Sortir.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B1A00131A2A3A4A5A6A7A8A /* Sortir.xcdatamodeld */; };
-		0B1A00041A2A3A4A5A6A7A8A /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1A00201A2A3A4A5A6A7A8A /* CoreDataService.swift */; };
 		0B1A00051A2A3A4A5A6A7A8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B1A00151A2A3A4A5A6A7A8A /* Assets.xcassets */; };
 		0B1A00061A2A3A4A5A6A7A8A /* Preview Content/Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B1A00161A2A3A4A5A6A7A8A /* Preview Content/Preview Assets.xcassets */; };
 		228C21192ED56D9100F0ACD5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 228C21092ED56D9100F0ACD5 /* Preview Assets.xcassets */; };
@@ -25,26 +22,26 @@
 		228C21212ED56D9100F0ACD5 /* SwipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228C21102ED56D9100F0ACD5 /* SwipeViewModel.swift */; };
 		228C21222ED56D9100F0ACD5 /* Sortir.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 228C21052ED56D9100F0ACD5 /* Sortir.xcdatamodeld */; };
 		228C21232ED56D9100F0ACD5 /* GlassCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228C21122ED56D9100F0ACD5 /* GlassCard.swift */; };
-		228C21242ED56D9100F0ACD5 /* SwipeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228C210E2ED56D9100F0ACD5 /* SwipeAction.swift */; };
 		228C21252ED56D9100F0ACD5 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228C210F2ED56D9100F0ACD5 /* SettingsViewModel.swift */; };
+		AA1B00012EDB000000000001 /* WorkflowAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B00012EDB000000000011 /* WorkflowAction.swift */; };
+		AA1B00012EDB000000000002 /* WorkflowListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B00012EDB000000000012 /* WorkflowListView.swift */; };
+		AA1B00012EDB000000000003 /* WorkflowSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B00012EDB000000000013 /* WorkflowSetupView.swift */; };
+		AA1B00012EDB000000000004 /* ActionConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B00012EDB000000000014 /* ActionConfigView.swift */; };
+		AA1B00012EDB000000000005 /* AlbumPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B00012EDB000000000015 /* AlbumPickerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0B1A00101A2A3A4A5A6A7A8A /* SortirApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortirApp.swift; sourceTree = "<group>"; };
 		0B1A00111A2A3A4A5A6A7A8A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		0B1A00121A2A3A4A5A6A7A8A /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		0B1A00141A2A3A4A5A6A7A8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B1A00151A2A3A4A5A6A7A8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B1A00161A2A3A4A5A6A7A8A /* Preview Content/Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Content/Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0B1A00171A2A3A4A5A6A7A8A /* Sortir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sortir.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0B1A00181A2A3A4A5A6A7A8A /* Sortir.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Sortir.xcdatamodel; sourceTree = "<group>"; };
-		0B1A00201A2A3A4A5A6A7A8A /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		228C21042ED56D9100F0ACD5 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		228C21082ED56D9100F0ACD5 /* PhotoAssetItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAssetItem.swift; sourceTree = "<group>"; };
 		228C21092ED56D9100F0ACD5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		228C210B2ED56D9100F0ACD5 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		228C210C2ED56D9100F0ACD5 /* PhotosService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosService.swift; sourceTree = "<group>"; };
-		228C210E2ED56D9100F0ACD5 /* SwipeAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeAction.swift; sourceTree = "<group>"; };
 		228C210F2ED56D9100F0ACD5 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		228C21102ED56D9100F0ACD5 /* SwipeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeViewModel.swift; sourceTree = "<group>"; };
 		228C21122ED56D9100F0ACD5 /* GlassCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassCard.swift; sourceTree = "<group>"; };
@@ -52,6 +49,11 @@
 		228C21152ED56D9100F0ACD5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		228C21162ED56D9100F0ACD5 /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
 		228C21182ED56D9100F0ACD5 /* Sortir.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Sortir.xcdatamodel; sourceTree = "<group>"; };
+		AA1B00012EDB000000000011 /* WorkflowAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowAction.swift; sourceTree = "<group>"; };
+		AA1B00012EDB000000000012 /* WorkflowListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowListView.swift; sourceTree = "<group>"; };
+		AA1B00012EDB000000000013 /* WorkflowSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowSetupView.swift; sourceTree = "<group>"; };
+		AA1B00012EDB000000000014 /* ActionConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionConfigView.swift; sourceTree = "<group>"; };
+		AA1B00012EDB000000000015 /* AlbumPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,57 +75,14 @@
 				228C21082ED56D9100F0ACD5 /* PhotoAssetItem.swift */,
 				228C210A2ED56D9100F0ACD5 /* Preview Content */,
 				228C210D2ED56D9100F0ACD5 /* Services */,
-				228C210E2ED56D9100F0ACD5 /* SwipeAction.swift */,
 				228C21112ED56D9100F0ACD5 /* ViewModels */,
 				228C21172ED56D9100F0ACD5 /* Views */,
 				0B1A00101A2A3A4A5A6A7A8A /* SortirApp.swift */,
 				0B1A00111A2A3A4A5A6A7A8A /* ContentView.swift */,
 				0B1A00141A2A3A4A5A6A7A8A /* Info.plist */,
 				0B1A00151A2A3A4A5A6A7A8A /* Assets.xcassets */,
-				0B1A001C1A2A3A4A5A6A7A8A /* Models */,
-				0B1A001D1A2A3A4A5A6A7A8A /* Services */,
-				0B1A001E1A2A3A4A5A6A7A8A /* ViewModels */,
-				0B1A001F1A2A3A4A5A6A7A8A /* Views */,
-				0B1A00301A2A3A4A5A6A7A8A /* CoreData */,
 			);
 			path = Sortir;
-			sourceTree = "<group>";
-		};
-		0B1A001C1A2A3A4A5A6A7A8A /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		0B1A001D1A2A3A4A5A6A7A8A /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				0B1A00201A2A3A4A5A6A7A8A /* CoreDataService.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		0B1A001E1A2A3A4A5A6A7A8A /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		0B1A001F1A2A3A4A5A6A7A8A /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				0B1A00211A2A3A4A5A6A7A8A /* Components */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		0B1A00211A2A3A4A5A6A7A8A /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 		0B1A00221A2A3A4A5A6A7A8A /* Products */ = {
@@ -151,15 +110,6 @@
 			);
 			sourceTree = "<group>";
 		};
-		0B1A00301A2A3A4A5A6A7A8A /* CoreData */ = {
-			isa = PBXGroup;
-			children = (
-				0B1A00121A2A3A4A5A6A7A8A /* PersistenceController.swift */,
-				0B1A00131A2A3A4A5A6A7A8A /* Sortir.xcdatamodeld */,
-			);
-			path = CoreData;
-			sourceTree = "<group>";
-		};
 		228C21032ED56A5700F0ACD5 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +130,7 @@
 		228C21072ED56D9100F0ACD5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				AA1B00012EDB000000000011 /* WorkflowAction.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -225,6 +176,10 @@
 				228C21142ED56D9100F0ACD5 /* Components */,
 				228C21152ED56D9100F0ACD5 /* SettingsView.swift */,
 				228C21162ED56D9100F0ACD5 /* SwipeView.swift */,
+				AA1B00012EDB000000000012 /* WorkflowListView.swift */,
+				AA1B00012EDB000000000013 /* WorkflowSetupView.swift */,
+				AA1B00012EDB000000000014 /* ActionConfigView.swift */,
+				AA1B00012EDB000000000015 /* AlbumPickerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -300,10 +255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B1A00031A2A3A4A5A6A7A8A /* Sortir.xcdatamodeld in Sources */,
 				0B1A00011A2A3A4A5A6A7A8A /* ContentView.swift in Sources */,
-				0B1A00021A2A3A4A5A6A7A8A /* PersistenceController.swift in Sources */,
-				0B1A00041A2A3A4A5A6A7A8A /* CoreDataService.swift in Sources */,
 				228C211A2ED56D9100F0ACD5 /* PersistenceController.swift in Sources */,
 				228C211B2ED56D9100F0ACD5 /* PhotosService.swift in Sources */,
 				228C211C2ED56D9100F0ACD5 /* CoreDataService.swift in Sources */,
@@ -314,9 +266,13 @@
 				228C21212ED56D9100F0ACD5 /* SwipeViewModel.swift in Sources */,
 				228C21222ED56D9100F0ACD5 /* Sortir.xcdatamodeld in Sources */,
 				228C21232ED56D9100F0ACD5 /* GlassCard.swift in Sources */,
-				228C21242ED56D9100F0ACD5 /* SwipeAction.swift in Sources */,
 				228C21252ED56D9100F0ACD5 /* SettingsViewModel.swift in Sources */,
 				0B1A00001A2A3A4A5A6A7A8A /* SortirApp.swift in Sources */,
+				AA1B00012EDB000000000001 /* WorkflowAction.swift in Sources */,
+				AA1B00012EDB000000000002 /* WorkflowListView.swift in Sources */,
+				AA1B00012EDB000000000003 /* WorkflowSetupView.swift in Sources */,
+				AA1B00012EDB000000000004 /* ActionConfigView.swift in Sources */,
+				AA1B00012EDB000000000005 /* AlbumPickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,17 +482,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		0B1A00131A2A3A4A5A6A7A8A /* Sortir.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				0B1A00181A2A3A4A5A6A7A8A /* Sortir.xcdatamodel */,
-			);
-			currentVersion = 0B1A00181A2A3A4A5A6A7A8A /* Sortir.xcdatamodel */;
-			name = Sortir.xcdatamodeld;
-			path = Sortir/CoreData/Sortir.xcdatamodeld;
-			sourceTree = SOURCE_ROOT;
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		228C21052ED56D9100F0ACD5 /* Sortir.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

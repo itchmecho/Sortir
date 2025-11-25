@@ -6,6 +6,8 @@ struct PhotoCardView: View {
     let offset: CGSize
     let rotation: Double
     let cardOpacity: Double
+    var leftAction: WorkflowAction = .delete()
+    var rightAction: WorkflowAction = .keep()
 
     var body: some View {
         GeometryReader { geometry in
@@ -26,29 +28,31 @@ struct PhotoCardView: View {
                 // Swipe indicators overlay
                 VStack {
                     HStack {
-                        // Delete indicator (left)
+                        // Left action indicator
                         if offset.width < -30 {
                             VStack(spacing: 8) {
-                                Image(systemName: "trash.fill")
+                                Image(systemName: leftAction.icon)
                                     .font(.system(size: 40))
-                                Text("Delete")
+                                Text(leftAction.displayName)
                                     .font(.caption)
+                                    .lineLimit(1)
                             }
-                            .foregroundColor(.red)
+                            .foregroundColor(leftAction.color)
                             .opacity(Double(min(abs(offset.width) / 100, 1)))
                         }
 
                         Spacer()
 
-                        // Keep indicator (right)
+                        // Right action indicator
                         if offset.width > 30 {
                             VStack(spacing: 8) {
-                                Image(systemName: "checkmark.circle.fill")
+                                Image(systemName: rightAction.icon)
                                     .font(.system(size: 40))
-                                Text("Keep")
+                                Text(rightAction.displayName)
                                     .font(.caption)
+                                    .lineLimit(1)
                             }
-                            .foregroundColor(.green)
+                            .foregroundColor(rightAction.color)
                             .opacity(Double(min(offset.width / 100, 1)))
                         }
                     }

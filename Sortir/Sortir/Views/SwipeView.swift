@@ -2,8 +2,10 @@ import SwiftUI
 
 // MARK: - Home View
 struct HomeView: View {
-    @State private var showSwipeView = false
+    @State private var showWorkflowPicker = false
     @State private var showSettings = false
+    @State private var selectedWorkflow: Workflow?
+    @State private var showSwipeView = false
 
     var body: some View {
         NavigationView {
@@ -47,7 +49,7 @@ struct HomeView: View {
                     // Main action buttons
                     VStack(spacing: 16) {
                         // Start sorting button
-                        Button(action: { showSwipeView = true }) {
+                        Button(action: { showWorkflowPicker = true }) {
                             HStack(spacing: 12) {
                                 Image(systemName: "play.fill")
                                     .font(.headline)
@@ -90,8 +92,17 @@ struct HomeView: View {
             }
             .navigationBarHidden(true)
         }
+        .sheet(isPresented: $showWorkflowPicker) {
+            WorkflowListView { workflow in
+                selectedWorkflow = workflow
+                showWorkflowPicker = false
+                showSwipeView = true
+            }
+        }
         .fullScreenCover(isPresented: $showSwipeView) {
-            SwipeSessionView()
+            if let workflow = selectedWorkflow {
+                SwipeSessionView(workflow: workflow)
+            }
         }
         .sheet(isPresented: $showSettings) {
             SettingsView()
@@ -104,6 +115,8 @@ struct SwipeSessionView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel = SwipeViewModel()
     @State private var showSettings = false
+
+    let workflow: Workflow
 
     var body: some View {
         ZStack {
@@ -138,6 +151,13 @@ struct SwipeSessionView: View {
                     }
                     .padding(.top, 20)
                 }
+            } else if viewModel.isProcessing {
+                VStack(spacing: 16) {
+                    ProgressView()
+                        .scaleEffect(1.5)
+                    Text("Organizing your photos...")
+                        .foregroundColor(.secondary)
+                }
             } else if viewModel.currentIndex < viewModel.photos.count {
                 VStack(spacing: 0) {
                     // Header
@@ -154,7 +174,7 @@ struct SwipeSessionView: View {
                         Spacer()
 
                         VStack {
-                            Text("Organize Photos")
+                            Text(workflow.name)
                                 .font(.headline)
                             Text("\(viewModel.currentIndex + 1) / \(viewModel.photos.count)")
                                 .font(.caption)
@@ -193,7 +213,9 @@ struct SwipeSessionView: View {
                                 photo: viewModel.photos[viewModel.currentIndex + 1],
                                 offset: .zero,
                                 rotation: 0,
-                                cardOpacity: 0.5
+                                cardOpacity: 0.5,
+                                leftAction: workflow.leftAction,
+                                rightAction: workflow.rightAction
                             )
                             .scaleEffect(0.95)
                         }
@@ -202,7 +224,9 @@ struct SwipeSessionView: View {
                             photo: viewModel.photos[viewModel.currentIndex],
                             offset: viewModel.dragOffset,
                             rotation: viewModel.dragRotation,
-                            cardOpacity: 1.0
+                            cardOpacity: 1.0,
+                            leftAction: workflow.leftAction,
+                            rightAction: workflow.rightAction
                         )
                         .gesture(
                             DragGesture()
@@ -218,33 +242,37 @@ struct SwipeSessionView: View {
 
                     Spacer()
 
-                    // Action buttons
+                    // Action buttons - dynamic based on workflow
                     HStack(spacing: 20) {
+                        // Left action button
                         Button(action: { viewModel.performSwipe(direction: .left) }) {
                             VStack(spacing: 8) {
-                                Image(systemName: "trash.fill")
+                                Image(systemName: workflow.leftAction.icon)
                                     .font(.title2)
-                                Text("Delete")
+                                Text(workflow.leftAction.displayName)
                                     .font(.caption)
+                                    .lineLimit(1)
                             }
-                            .foregroundColor(.red)
+                            .foregroundColor(workflow.leftAction.color)
                             .frame(maxWidth: .infinity)
                             .padding(16)
-                            .background(.red.opacity(0.1))
+                            .background(workflow.leftAction.color.opacity(0.1))
                             .cornerRadius(14)
                         }
 
+                        // Right action button
                         Button(action: { viewModel.performSwipe(direction: .right) }) {
                             VStack(spacing: 8) {
-                                Image(systemName: "checkmark.circle.fill")
+                                Image(systemName: workflow.rightAction.icon)
                                     .font(.title2)
-                                Text("Keep")
+                                Text(workflow.rightAction.displayName)
                                     .font(.caption)
+                                    .lineLimit(1)
                             }
-                            .foregroundColor(.green)
+                            .foregroundColor(workflow.rightAction.color)
                             .frame(maxWidth: .infinity)
                             .padding(16)
-                            .background(.green.opacity(0.1))
+                            .background(workflow.rightAction.color.opacity(0.1))
                             .cornerRadius(14)
                         }
                     }
@@ -253,17 +281,26 @@ struct SwipeSessionView: View {
                 }
             } else {
                 // Session complete
-                SessionCompleteView(
-                    kept: viewModel.keptAssets.count,
-                    deleted: viewModel.deletedAssets.count,
+                WorkflowSessionCompleteView(
+                    workflow: workflow,
+                    leftCount: viewModel.leftActionCount,
+                    rightCount: viewModel.rightActionCount,
                     onDone: { dismiss() }
                 )
             }
+        }
+        .alert("Error", isPresented: .constant(viewModel.errorMessage != nil)) {
+            Button("Dismiss") {
+                viewModel.errorMessage = nil
+            }
+        } message: {
+            Text(viewModel.errorMessage ?? "An error occurred")
         }
         .sheet(isPresented: $showSettings) {
             SettingsView()
         }
         .task {
+            viewModel.workflow = workflow
             await viewModel.loadPhotos()
         }
     }
@@ -397,6 +434,13 @@ struct SwipeView: View {
                     }
                     .padding(20)
                 }
+            } else if viewModel.isProcessing {
+                VStack(spacing: 16) {
+                    ProgressView()
+                        .scaleEffect(1.5)
+                    Text("Organizing your photos...")
+                        .foregroundColor(.secondary)
+                }
             } else {
                 SessionCompleteView(
                     kept: viewModel.keptAssets.count,
@@ -406,6 +450,13 @@ struct SwipeView: View {
                     }
                 )
             }
+        }
+        .alert("Error", isPresented: .constant(viewModel.errorMessage != nil)) {
+            Button("Dismiss") {
+                viewModel.errorMessage = nil
+            }
+        } message: {
+            Text(viewModel.errorMessage ?? "An error occurred")
         }
         .sheet(isPresented: $showSettings) {
             SettingsView()
@@ -499,6 +550,156 @@ struct SessionCompleteView: View {
 
                 Divider()
 
+                HStack {
+                    Image(systemName: "photo.stack")
+                        .foregroundColor(.blue)
+                    Text("Total sorted")
+                    Spacer()
+                    Text("\(total)")
+                        .font(.title3.bold())
+                }
+            }
+            .padding(16)
+            .background(.ultraThinMaterial)
+            .cornerRadius(16)
+            .padding(.horizontal, 20)
+
+            Spacer()
+
+            Button(action: onDone) {
+                Text("Back to Home")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(16)
+                    .background(
+                        LinearGradient(
+                            colors: [.blue, .purple],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .cornerRadius(14)
+            }
+            .padding(.horizontal, 20)
+
+            Spacer()
+                .frame(height: 40)
+        }
+    }
+}
+
+// MARK: - Workflow Session Complete View
+struct WorkflowSessionCompleteView: View {
+    let workflow: Workflow
+    let leftCount: Int
+    let rightCount: Int
+    let onDone: () -> Void
+
+    private var total: Int { leftCount + rightCount }
+
+    private var cheekyMessage: (title: String, subtitle: String) {
+        // Check for specific action types to customize messages
+        let leftType = workflow.leftAction.type
+        let rightType = workflow.rightAction.type
+
+        // If one is delete, check deletion ratio
+        if leftType == .delete || rightType == .delete {
+            let deleteCount = leftType == .delete ? leftCount : rightCount
+            let keepCount = leftType == .delete ? rightCount : leftCount
+
+            if deleteCount == 0 {
+                return ("Sentimental, huh?", "You kept everything. No judgment... okay, maybe a little.")
+            } else if keepCount == 0 {
+                return ("Scorched Earth!", "You deleted everything. Ruthless. We respect it.")
+            }
+
+            let deleteRatio = total > 0 ? Double(deleteCount) / Double(total) : 0
+            if deleteRatio > 0.8 {
+                return ("Marie Kondo Mode", "Those photos did NOT spark joy.")
+            } else if deleteRatio < 0.2 {
+                return ("The Collector", "Keeping the memories alive! All of them.")
+            }
+        }
+
+        // If sorting into albums
+        if leftType == .moveToAlbum || rightType == .moveToAlbum {
+            return ("Organized!", "Your albums are looking fresh.")
+        }
+
+        // If favoriting
+        if leftType == .favorite || rightType == .favorite {
+            let favoriteCount = leftType == .favorite ? leftCount : rightCount
+            if favoriteCount > total / 2 {
+                return ("Favorites Overload!", "You really love your photos.")
+            }
+        }
+
+        // Generic messages
+        let messages = [
+            ("Nice work!", "Your camera roll thanks you."),
+            ("Swipe game strong!", "That was satisfying, wasn't it?"),
+            ("All done!", "Time well spent. Probably."),
+            ("Photos: Sorted", "You're basically a professional organizer now."),
+            ("Boom. Done.", "Your storage space sends its regards.")
+        ]
+        return messages.randomElement() ?? messages[0]
+    }
+
+    var body: some View {
+        VStack(spacing: 24) {
+            Spacer()
+
+            // Fun icon
+            Image(systemName: "checkmark.seal.fill")
+                .font(.system(size: 70))
+                .foregroundStyle(
+                    LinearGradient(
+                        colors: [.blue, .purple],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+
+            VStack(spacing: 8) {
+                Text(cheekyMessage.title)
+                    .font(.title.bold())
+                    .multilineTextAlignment(.center)
+
+                Text(cheekyMessage.subtitle)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+            }
+
+            // Stats card - dynamic based on workflow
+            VStack(spacing: 12) {
+                // Left action stats
+                HStack {
+                    Image(systemName: workflow.leftAction.icon)
+                        .foregroundColor(workflow.leftAction.color)
+                    Text(workflow.leftAction.displayName)
+                    Spacer()
+                    Text("\(leftCount)")
+                        .font(.title3.bold())
+                }
+
+                Divider()
+
+                // Right action stats
+                HStack {
+                    Image(systemName: workflow.rightAction.icon)
+                        .foregroundColor(workflow.rightAction.color)
+                    Text(workflow.rightAction.displayName)
+                    Spacer()
+                    Text("\(rightCount)")
+                        .font(.title3.bold())
+                }
+
+                Divider()
+
+                // Total
                 HStack {
                     Image(systemName: "photo.stack")
                         .foregroundColor(.blue)

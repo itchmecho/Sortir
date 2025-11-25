@@ -34,23 +34,38 @@ This file contains project-specific information. General guidelines are document
 
 ```
 Sortir/
-├── Sortir_Product_Brief.md          # Full technical specification
-├── claude.md                          # This file
-├── [iOS Project Root]/
+├── CLAUDE.md                          # This file
+├── Sortir_Product_Brief.md            # Full technical specification
+├── roadmap.md                          # Development roadmap
+├── scripts/
+│   └── add_swift_file.py              # Script to add files to Xcode project
+├── Sortir/
+│   ├── SortirApp.swift                # App entry point
+│   ├── ContentView.swift              # Root view with permissions
+│   ├── SwipeAction.swift              # Legacy swipe action enum
+│   ├── PhotoAssetItem.swift           # Photo asset wrapper
 │   ├── Models/
-│   │   ├── Workflow.swift
-│   │   ├── WorkflowResult.swift
-│   │   └── Settings.swift
+│   │   └── WorkflowAction.swift       # ActionType enum + Workflow model
 │   ├── Views/
-│   │   ├── SwipeSessionView.swift
-│   │   ├── WorkflowSetupView.swift
-│   │   ├── SettingsView.swift
+│   │   ├── SwipeView.swift            # Home + swipe session views
+│   │   ├── SettingsView.swift         # Settings panel
+│   │   ├── WorkflowListView.swift     # Workflow selection list
+│   │   ├── WorkflowSetupView.swift    # Workflow configuration
+│   │   ├── ActionConfigView.swift     # Action type configuration
+│   │   ├── AlbumPickerView.swift      # Album selection/creation
 │   │   └── Components/
+│   │       ├── GlassCard.swift        # Reusable glass card component
+│   │       └── PhotoCardView.swift    # Photo card with swipe overlay
+│   ├── ViewModels/
+│   │   ├── SwipeViewModel.swift       # Swipe session logic
+│   │   └── SettingsViewModel.swift    # Settings logic
 │   ├── Services/
-│   │   ├── PhotosService.swift
-│   │   ├── WorkflowService.swift
-│   │   └── CoreDataService.swift
-│   └── Assets/
+│   │   ├── PhotosService.swift        # Photos framework integration
+│   │   └── CoreDataService.swift      # CoreData operations
+│   ├── CoreData/
+│   │   ├── PersistenceController.swift
+│   │   └── Sortir.xcdatamodeld        # CoreData model
+│   └── Assets.xcassets/
 ```
 
 ## Important Notes
@@ -66,14 +81,38 @@ Sortir/
 ### Running the App
 
 ```bash
-xcodebuild -scheme Sortir -destination 'platform=iOS Simulator,name=iPhone 15'
+xcodebuild -scheme Sortir -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
 
 ### Testing
 
 ```bash
-xcodebuild test -scheme Sortir -destination 'platform=iOS Simulator,name=iPhone 15'
+xcodebuild test -scheme Sortir -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
+
+### Adding New Swift Files to Xcode Project
+
+**IMPORTANT**: When creating new Swift files, you MUST add them to the Xcode project file. Use the provided script:
+
+```bash
+# Usage: python3 scripts/add_swift_file.py <filename.swift> <group>
+# Groups: Models, Views, ViewModels, Services, Components
+
+# Examples:
+python3 scripts/add_swift_file.py MyNewModel.swift Models
+python3 scripts/add_swift_file.py MyNewView.swift Views
+python3 scripts/add_swift_file.py MyNewViewModel.swift ViewModels
+python3 scripts/add_swift_file.py MyNewService.swift Services
+python3 scripts/add_swift_file.py MyNewComponent.swift Components
+```
+
+The script will:
+1. Generate unique IDs for the file reference
+2. Add PBXFileReference entry
+3. Add PBXBuildFile entry
+4. Add file to the correct group
+5. Add to the Sources build phase
+6. Create a backup of the project file
 
 ### Core Development Areas
 
