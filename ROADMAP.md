@@ -1,4 +1,4 @@
-# Sortir - Product Roadmap & Implementation Plan
+# Flipix - Product Roadmap & Implementation Plan
 
 ## Vision
 
@@ -20,7 +20,7 @@ Transform photo library organization from tedious folder navigation into a fluid
 - ✨ Liquid glass UI aesthetic (frosted cards, blur effects)
 - 📸 Photo library read access (all photos)
 - 👈👉 Swipe gestures: Left = Delete, Right = Keep
-- 📁 Create "Sortir Kept" album automatically
+- 📁 Create "Flipix Kept" album automatically
 - 🎨 Smooth animations and visual feedback
 - ✅ End-of-session album creation
 - 💾 **CoreData persistence** (save session results)
@@ -149,10 +149,47 @@ Transform photo library organization from tedious folder navigation into a fluid
   - Test coverage: 12 critical tests for undo/redo and models
   - Testability: Services now injectable via DI pattern
 
+**Test Status**: ✅ All tests passing (13/13)
+- ✅ SwipeViewModelTests: 7/7 (undo/redo functionality fully tested)
+- ✅ WorkflowActionTests: 5/5 (model tests)
+- ✅ FlipixTests: 1/1 (example test)
+
+**Test Fixes Applied**:
+- Added `PhotoAssetItem.testItem(id:)` helper for creating testable photo items
+- Fixed delete confirmation flow handling in tests
+- Added mock implementations for PhotosService caching methods
+
 ---
 
-### 🎨 Milestone 4: Polish & Power Features (v0.3) - ~8 hours
-**Goal**: Enhanced UX and advanced features after code cleanup
+### 🎓 Milestone 4: First-Launch Onboarding (v0.3) - ~3 hours
+**Goal**: Guide new users through the app with an interactive tutorial before they access their photo library
+
+**Features**:
+- 🎯 **First-Launch Detection** - Check if user has completed onboarding (persisted in UserDefaults)
+- 📸 **Interactive Tutorial Session** - Swipe through 3 placeholder images with prompts
+- 💡 **Contextual Tips** - In-app guidance on gesture mechanics, workflow selection, and album creation
+- ✨ **Smooth Transition** - Automatically proceed to main app after tutorial completion
+- 🎨 **Consistent Glass UI** - Tutorial uses same aesthetic as main app
+- 📖 **Tutorial State** - Track onboarding progress (can be re-accessed from settings)
+
+**Technical Details**:
+- Create `Views/OnboardingView.swift` - Main tutorial container
+- Add onboarding flag to UserDefaults (e.g., `hasCompletedOnboarding`)
+- Use 3 pre-made placeholder images for swipe practice
+- Add "Skip" option for returning users who somehow trigger onboarding again
+- Integrate into ContentView as first-launch check before HomeView
+
+**User Flow**:
+1. App launches → Check onboarding status
+2. If first launch → Show OnboardingView with placeholder images
+3. User swipes left/right through 3 tutorial photos with prompts
+4. Show summary of what they learned
+5. Mark onboarding complete and navigate to HomeView
+
+---
+
+### 🎨 Milestone 5: Polish & Power Features (v0.4) - ~8 hours
+**Goal**: Enhanced UX and advanced features after onboarding
 
 **Features**:
 - 🎯 Advanced photo selection (multi-select, batch operations)
