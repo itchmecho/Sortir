@@ -31,6 +31,8 @@
 		AA1B00012EDB000000000004 /* ActionConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B00012EDB000000000014 /* ActionConfigView.swift */; };
 		AA1B00012EDB000000000005 /* AlbumPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B00012EDB000000000015 /* AlbumPickerView.swift */; };
 		AD1E0910A533B92245C8CC97 /* SessionMessageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E799625FFA66F3D7864D19EC /* SessionMessageGenerator.swift */; };
+		4D91C5720261F778B9FDB2E7 /* PlaceholderImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A065EC9C5ECB74EB6AA08F9 /* PlaceholderImageGenerator.swift */; };
+		83FDBDAB983AAE0E577D393E /* DebugDataGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDDFE9E179D5D1769BD7FA /* DebugDataGenerator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,8 @@
 		AA1B00012EDB000000000014 /* ActionConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionConfigView.swift; sourceTree = "<group>"; };
 		AA1B00012EDB000000000015 /* AlbumPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPickerView.swift; sourceTree = "<group>"; };
 		E799625FFA66F3D7864D19EC /* SessionMessageGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMessageGenerator.swift; sourceTree = "<group>"; };
+		1A065EC9C5ECB74EB6AA08F9 /* PlaceholderImageGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderImageGenerator.swift; sourceTree = "<group>"; };
+		91DDDFE9E179D5D1769BD7FA /* DebugDataGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugDataGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -179,6 +183,8 @@
 				228C210B2ED56D9100F0ACD5 /* CoreDataService.swift */,
 				228C210C2ED56D9100F0ACD5 /* PhotosService.swift */,
 				E799625FFA66F3D7864D19EC /* SessionMessageGenerator.swift */,
+				1A065EC9C5ECB74EB6AA08F9 /* PlaceholderImageGenerator.swift */,
+				91DDDFE9E179D5D1769BD7FA /* DebugDataGenerator.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -344,6 +350,8 @@
 				A11279D258C487439D4EBCBD /* AppConstants.swift in Sources */,
 				8AE66D25097CF9962CA9402D /* UnifiedSessionCompleteView.swift in Sources */,
 				AD1E0910A533B92245C8CC97 /* SessionMessageGenerator.swift in Sources */,
+				4D91C5720261F778B9FDB2E7 /* PlaceholderImageGenerator.swift in Sources */,
+				83FDBDAB983AAE0E577D393E /* DebugDataGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
