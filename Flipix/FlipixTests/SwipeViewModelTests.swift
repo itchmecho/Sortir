@@ -1,6 +1,6 @@
 import XCTest
 import Photos
-@testable import Sortir
+@testable import Flipix
 
 /// Tests for SwipeViewModel undo/redo functionality
 /// This is the most critical and complex logic in the app
@@ -32,13 +32,17 @@ final class SwipeViewModelTests: XCTestCase {
 
     /// Test that undo reverts a left swipe action
     func testUndoLeftSwipe() {
-        // Create a mock asset
-        let photoItem = PhotoAssetItem(asset: PHAsset())
+        // Create a test photo item with a unique ID
+        let photoItem = PhotoAssetItem.testItem(id: "test-photo-1")
         viewModel.photos = [photoItem]
         viewModel.currentIndex = 0
 
-        // Perform a left swipe (delete action)
+        // Perform a left swipe (delete action) - requires confirmation
         viewModel.performSwipe(direction: .left)
+
+        // Delete actions show confirmation dialog first
+        XCTAssertTrue(viewModel.showDeleteConfirmation)
+        viewModel.confirmDelete()
 
         // Verify the action was recorded
         XCTAssertEqual(viewModel.leftActionCount, 1)
@@ -58,8 +62,8 @@ final class SwipeViewModelTests: XCTestCase {
 
     /// Test that undo reverts a right swipe action
     func testUndoRightSwipe() {
-        // Create a mock asset
-        let photoItem = PhotoAssetItem(asset: PHAsset())
+        // Create a test photo item with a unique ID
+        let photoItem = PhotoAssetItem.testItem(id: "test-photo-1")
         viewModel.photos = [photoItem]
         viewModel.currentIndex = 0
 
@@ -85,12 +89,13 @@ final class SwipeViewModelTests: XCTestCase {
 
     /// Test that redo reapplies an undone action
     func testRedoAfterUndo() {
-        let photoItem = PhotoAssetItem(asset: PHAsset())
+        let photoItem = PhotoAssetItem.testItem(id: "test-photo-1")
         viewModel.photos = [photoItem]
         viewModel.currentIndex = 0
 
-        // Perform action
+        // Perform action (delete requires confirmation)
         viewModel.performSwipe(direction: .left)
+        viewModel.confirmDelete()
         let countAfterSwipe = viewModel.leftActionCount
 
         // Undo
@@ -113,22 +118,29 @@ final class SwipeViewModelTests: XCTestCase {
 
     /// Test that new swipes clear the redo stack
     func testNewSwipeClearsRedoStack() {
-        let photoItem1 = PhotoAssetItem(asset: PHAsset())
-        let photoItem2 = PhotoAssetItem(asset: PHAsset())
-        viewModel.photos = [photoItem1, photoItem2]
+        let photoItem1 = PhotoAssetItem.testItem(id: "test-photo-1")
+        let photoItem2 = PhotoAssetItem.testItem(id: "test-photo-2")
+        let photoItem3 = PhotoAssetItem.testItem(id: "test-photo-3")
+        viewModel.photos = [photoItem1, photoItem2, photoItem3]
         viewModel.currentIndex = 0
 
-        // Perform, undo, then perform a new action
-        viewModel.performSwipe(direction: .left)
+        // Perform a right swipe (keep - no confirmation), then undo
+        viewModel.performSwipe(direction: .right)
+        XCTAssertEqual(viewModel.rightActionCount, 1)
+        XCTAssertTrue(viewModel.canUndo)
+
         viewModel.undo()
+        XCTAssertEqual(viewModel.rightActionCount, 0)
         XCTAssertTrue(viewModel.canRedo)
 
         // New action should clear redo stack
-        viewModel.currentIndex = 1  // Move to next item to test
+        // After undo, currentIndex was advanced by swipe but undo doesn't revert it
+        // So we're now at index 1
         viewModel.performSwipe(direction: .right)
 
-        // Redo should no longer be available
+        // Redo should no longer be available (new action cleared it)
         XCTAssertFalse(viewModel.canRedo)
+        XCTAssertEqual(viewModel.rightActionCount, 1)
     }
 
     /// Test that undo on empty stack does nothing
@@ -156,40 +168,51 @@ final class SwipeViewModelTests: XCTestCase {
     // MARK: - Multiple Action Tests
 
     /// Test undo/redo with multiple sequential actions
+    /// Uses right swipes (keep) to avoid delete confirmation dialog complexity
     func testMultipleUndoRedo() {
-        let photoItem1 = PhotoAssetItem(asset: PHAsset())
-        let photoItem2 = PhotoAssetItem(asset: PHAsset())
-        let photoItem3 = PhotoAssetItem(asset: PHAsset())
-        viewModel.photos = [photoItem1, photoItem2, photoItem3]
+        let photoItem1 = PhotoAssetItem.testItem(id: "test-photo-1")
+        let photoItem2 = PhotoAssetItem.testItem(id: "test-photo-2")
+        let photoItem3 = PhotoAssetItem.testItem(id: "test-photo-3")
+        let photoItem4 = PhotoAssetItem.testItem(id: "test-photo-4")
+        viewModel.photos = [photoItem1, photoItem2, photoItem3, photoItem4]
 
-        // Perform three actions
+        // Perform three right swipes (keep - no confirmation needed)
         viewModel.currentIndex = 0
-        viewModel.performSwipe(direction: .left)  // Delete 1
-        viewModel.currentIndex = 1
-        viewModel.performSwipe(direction: .right)  // Keep 1
-        viewModel.currentIndex = 2
-        viewModel.performSwipe(direction: .left)  // Delete 1
+        viewModel.performSwipe(direction: .right)  // Keep 1 - advances to index 1
+        viewModel.performSwipe(direction: .right)  // Keep 2 - advances to index 2
+        viewModel.performSwipe(direction: .right)  // Keep 3 - advances to index 3
 
         // Verify state
-        XCTAssertEqual(viewModel.leftActionCount, 2)
-        XCTAssertEqual(viewModel.rightActionCount, 1)
+        XCTAssertEqual(viewModel.rightActionCount, 3)
+        XCTAssertEqual(viewModel.keptAssets.count, 3)
+        XCTAssertTrue(viewModel.canUndo)
 
         // Undo all three
         viewModel.undo()
+        XCTAssertEqual(viewModel.rightActionCount, 2)
         viewModel.undo()
+        XCTAssertEqual(viewModel.rightActionCount, 1)
         viewModel.undo()
+        XCTAssertEqual(viewModel.rightActionCount, 0)
 
         // Verify all undone
-        XCTAssertEqual(viewModel.leftActionCount, 0)
         XCTAssertEqual(viewModel.rightActionCount, 0)
+        XCTAssertEqual(viewModel.keptAssets.count, 0)
+        XCTAssertFalse(viewModel.canUndo)
+        XCTAssertTrue(viewModel.canRedo)
 
         // Redo all three
         viewModel.redo()
+        XCTAssertEqual(viewModel.rightActionCount, 1)
         viewModel.redo()
+        XCTAssertEqual(viewModel.rightActionCount, 2)
         viewModel.redo()
+        XCTAssertEqual(viewModel.rightActionCount, 3)
 
         // Verify all redone
-        XCTAssertEqual(viewModel.leftActionCount, 2)
-        XCTAssertEqual(viewModel.rightActionCount, 1)
+        XCTAssertEqual(viewModel.rightActionCount, 3)
+        XCTAssertEqual(viewModel.keptAssets.count, 3)
+        XCTAssertTrue(viewModel.canUndo)
+        XCTAssertFalse(viewModel.canRedo)
     }
 }

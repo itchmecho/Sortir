@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct SortirApp: App {
+struct FlipixApp: App {
     let coreDataService = CoreDataService.shared
 
     var body: some Scene {

@@ -3,11 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B1A00001A2A3A4A5A6A7A8A /* SortirApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1A00101A2A3A4A5A6A7A8A /* SortirApp.swift */; };
+		0B1A00001A2A3A4A5A6A7A8A /* FlipixApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1A00101A2A3A4A5A6A7A8A /* FlipixApp.swift */; };
 		0B1A00011A2A3A4A5A6A7A8A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1A00111A2A3A4A5A6A7A8A /* ContentView.swift */; };
 		0B1A00051A2A3A4A5A6A7A8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B1A00151A2A3A4A5A6A7A8A /* Assets.xcassets */; };
 		0B1A00061A2A3A4A5A6A7A8A /* Preview Content/Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B1A00161A2A3A4A5A6A7A8A /* Preview Content/Preview Assets.xcassets */; };
@@ -20,25 +20,38 @@
 		228C211F2ED56D9100F0ACD5 /* PhotoAssetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228C21082ED56D9100F0ACD5 /* PhotoAssetItem.swift */; };
 		228C21202ED56D9100F0ACD5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228C21152ED56D9100F0ACD5 /* SettingsView.swift */; };
 		228C21212ED56D9100F0ACD5 /* SwipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228C21102ED56D9100F0ACD5 /* SwipeViewModel.swift */; };
-		228C21222ED56D9100F0ACD5 /* Sortir.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 228C21052ED56D9100F0ACD5 /* Sortir.xcdatamodeld */; };
+		228C21222ED56D9100F0ACD5 /* Flipix.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 228C21052ED56D9100F0ACD5 /* Flipix.xcdatamodeld */; };
 		228C21232ED56D9100F0ACD5 /* GlassCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228C21122ED56D9100F0ACD5 /* GlassCard.swift */; };
 		228C21252ED56D9100F0ACD5 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228C210F2ED56D9100F0ACD5 /* SettingsViewModel.swift */; };
+		8AE66D25097CF9962CA9402D /* UnifiedSessionCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E36B7CA882515B8C380500 /* UnifiedSessionCompleteView.swift */; };
+		A11279D258C487439D4EBCBD /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D800B4C32F9DCA70620C4C1 /* AppConstants.swift */; };
 		AA1B00012EDB000000000001 /* WorkflowAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B00012EDB000000000011 /* WorkflowAction.swift */; };
 		AA1B00012EDB000000000002 /* WorkflowListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B00012EDB000000000012 /* WorkflowListView.swift */; };
 		AA1B00012EDB000000000003 /* WorkflowSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B00012EDB000000000013 /* WorkflowSetupView.swift */; };
 		AA1B00012EDB000000000004 /* ActionConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B00012EDB000000000014 /* ActionConfigView.swift */; };
 		AA1B00012EDB000000000005 /* AlbumPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B00012EDB000000000015 /* AlbumPickerView.swift */; };
-		A11279D258C487439D4EBCBD /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D800B4C32F9DCA70620C4C1 /* AppConstants.swift */; };
-		8AE66D25097CF9962CA9402D /* UnifiedSessionCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E36B7CA882515B8C380500 /* UnifiedSessionCompleteView.swift */; };
+		AD1E0910A533B92245C8CC97 /* SessionMessageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E799625FFA66F3D7864D19EC /* SessionMessageGenerator.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		2211772C2ED67B5F00B2CCC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0B1A00291A2A3A4A5A6A7A8A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0B1A00251A2A3A4A5A6A7A8A;
+			remoteInfo = Flipix;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		0B1A00101A2A3A4A5A6A7A8A /* SortirApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortirApp.swift; sourceTree = "<group>"; };
+		0B1A00101A2A3A4A5A6A7A8A /* FlipixApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipixApp.swift; sourceTree = "<group>"; };
 		0B1A00111A2A3A4A5A6A7A8A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0B1A00141A2A3A4A5A6A7A8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B1A00151A2A3A4A5A6A7A8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B1A00161A2A3A4A5A6A7A8A /* Preview Content/Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Content/Preview Assets.xcassets"; sourceTree = "<group>"; };
-		0B1A00171A2A3A4A5A6A7A8A /* Sortir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sortir.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B1A00171A2A3A4A5A6A7A8A /* Flipix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flipix.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D800B4C32F9DCA70620C4C1 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		221177282ED67B5F00B2CCC2 /* FlipixTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlipixTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		228C21042ED56D9100F0ACD5 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		228C21082ED56D9100F0ACD5 /* PhotoAssetItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAssetItem.swift; sourceTree = "<group>"; };
 		228C21092ED56D9100F0ACD5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -50,15 +63,19 @@
 		228C21132ED56D9100F0ACD5 /* PhotoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCardView.swift; sourceTree = "<group>"; };
 		228C21152ED56D9100F0ACD5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		228C21162ED56D9100F0ACD5 /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
-		228C21182ED56D9100F0ACD5 /* Sortir.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Sortir.xcdatamodel; sourceTree = "<group>"; };
+		228C21182ED56D9100F0ACD5 /* Flipix.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Flipix.xcdatamodel; sourceTree = "<group>"; };
+		30E36B7CA882515B8C380500 /* UnifiedSessionCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedSessionCompleteView.swift; sourceTree = "<group>"; };
 		AA1B00012EDB000000000011 /* WorkflowAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowAction.swift; sourceTree = "<group>"; };
 		AA1B00012EDB000000000012 /* WorkflowListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowListView.swift; sourceTree = "<group>"; };
 		AA1B00012EDB000000000013 /* WorkflowSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowSetupView.swift; sourceTree = "<group>"; };
 		AA1B00012EDB000000000014 /* ActionConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionConfigView.swift; sourceTree = "<group>"; };
 		AA1B00012EDB000000000015 /* AlbumPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPickerView.swift; sourceTree = "<group>"; };
-		0D800B4C32F9DCA70620C4C1 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
-		30E36B7CA882515B8C380500 /* UnifiedSessionCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedSessionCompleteView.swift; sourceTree = "<group>"; };
+		E799625FFA66F3D7864D19EC /* SessionMessageGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMessageGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		221177292ED67B5F00B2CCC2 /* FlipixTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = FlipixTests; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		0B1A00191A2A3A4A5A6A7A8A /* Frameworks */ = {
@@ -68,10 +85,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		221177252ED67B5F00B2CCC2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0B1A001A1A2A3A4A5A6A7A8A /* Sortir */ = {
+		0B1A001A1A2A3A4A5A6A7A8A /* Flipix */ = {
 			isa = PBXGroup;
 			children = (
 				228C21062ED56D9100F0ACD5 /* CoreData */,
@@ -81,34 +105,36 @@
 				228C210D2ED56D9100F0ACD5 /* Services */,
 				228C21112ED56D9100F0ACD5 /* ViewModels */,
 				228C21172ED56D9100F0ACD5 /* Views */,
-				0B1A00101A2A3A4A5A6A7A8A /* SortirApp.swift */,
+				0B1A00101A2A3A4A5A6A7A8A /* FlipixApp.swift */,
 				0B1A00111A2A3A4A5A6A7A8A /* ContentView.swift */,
 				0B1A00141A2A3A4A5A6A7A8A /* Info.plist */,
 				0B1A00151A2A3A4A5A6A7A8A /* Assets.xcassets */,
 			);
-			path = Sortir;
+			path = Flipix;
 			sourceTree = "<group>";
 		};
 		0B1A00221A2A3A4A5A6A7A8A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0B1A00171A2A3A4A5A6A7A8A /* Sortir.app */,
+				0B1A00171A2A3A4A5A6A7A8A /* Flipix.app */,
+				221177282ED67B5F00B2CCC2 /* FlipixTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0B1A00231A2A3A4A5A6A7A8A /* SortirTests */ = {
+		0B1A00231A2A3A4A5A6A7A8A /* FlipixTests */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = SortirTests;
+			path = FlipixTests;
 			sourceTree = "<group>";
 		};
 		0B1A00241A2A3A4A5A6A7A8A = {
 			isa = PBXGroup;
 			children = (
-				0B1A001A1A2A3A4A5A6A7A8A /* Sortir */,
-				0B1A00231A2A3A4A5A6A7A8A /* SortirTests */,
+				0B1A001A1A2A3A4A5A6A7A8A /* Flipix */,
+				0B1A00231A2A3A4A5A6A7A8A /* FlipixTests */,
+				221177292ED67B5F00B2CCC2 /* FlipixTests */,
 				0B1A00221A2A3A4A5A6A7A8A /* Products */,
 				228C21032ED56A5700F0ACD5 /* Recovered References */,
 			);
@@ -126,7 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				228C21042ED56D9100F0ACD5 /* PersistenceController.swift */,
-				228C21052ED56D9100F0ACD5 /* Sortir.xcdatamodeld */,
+				228C21052ED56D9100F0ACD5 /* Flipix.xcdatamodeld */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -152,6 +178,7 @@
 			children = (
 				228C210B2ED56D9100F0ACD5 /* CoreDataService.swift */,
 				228C210C2ED56D9100F0ACD5 /* PhotosService.swift */,
+				E799625FFA66F3D7864D19EC /* SessionMessageGenerator.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -193,9 +220,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0B1A00251A2A3A4A5A6A7A8A /* Sortir */ = {
+		0B1A00251A2A3A4A5A6A7A8A /* Flipix */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0B1A00261A2A3A4A5A6A7A8A /* Build configuration list for PBXNativeTarget "Sortir" */;
+			buildConfigurationList = 0B1A00261A2A3A4A5A6A7A8A /* Build configuration list for PBXNativeTarget "Flipix" */;
 			buildPhases = (
 				0B1A00271A2A3A4A5A6A7A8A /* Sources */,
 				0B1A00191A2A3A4A5A6A7A8A /* Frameworks */,
@@ -205,10 +232,33 @@
 			);
 			dependencies = (
 			);
-			name = Sortir;
-			productName = Sortir;
-			productReference = 0B1A00171A2A3A4A5A6A7A8A /* Sortir.app */;
+			name = Flipix;
+			productName = Flipix;
+			productReference = 0B1A00171A2A3A4A5A6A7A8A /* Flipix.app */;
 			productType = "com.apple.product-type.application";
+		};
+		221177272ED67B5F00B2CCC2 /* FlipixTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 221177302ED67B5F00B2CCC2 /* Build configuration list for PBXNativeTarget "FlipixTests" */;
+			buildPhases = (
+				221177242ED67B5F00B2CCC2 /* Sources */,
+				221177252ED67B5F00B2CCC2 /* Frameworks */,
+				221177262ED67B5F00B2CCC2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2211772D2ED67B5F00B2CCC2 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				221177292ED67B5F00B2CCC2 /* FlipixTests */,
+			);
+			name = FlipixTests;
+			packageProductDependencies = (
+			);
+			productName = FlipixTests;
+			productReference = 221177282ED67B5F00B2CCC2 /* FlipixTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -217,15 +267,19 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1540;
+				LastSwiftUpdateCheck = 2610;
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					0B1A00251A2A3A4A5A6A7A8A = {
 						CreatedOnToolsVersion = 15.4;
 					};
+					221177272ED67B5F00B2CCC2 = {
+						CreatedOnToolsVersion = 26.1.1;
+						TestTargetID = 0B1A00251A2A3A4A5A6A7A8A;
+					};
 				};
 			};
-			buildConfigurationList = 0B1A002A1A2A3A4A5A6A7A8A /* Build configuration list for PBXProject "Sortir" */;
+			buildConfigurationList = 0B1A002A1A2A3A4A5A6A7A8A /* Build configuration list for PBXProject "Flipix" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -238,7 +292,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0B1A00251A2A3A4A5A6A7A8A /* Sortir */,
+				0B1A00251A2A3A4A5A6A7A8A /* Flipix */,
+				221177272ED67B5F00B2CCC2 /* FlipixTests */,
 			);
 		};
 /* End PBXProject section */
@@ -251,6 +306,13 @@
 				0B1A00061A2A3A4A5A6A7A8A /* Preview Content/Preview Assets.xcassets in Resources */,
 				228C21192ED56D9100F0ACD5 /* Preview Assets.xcassets in Resources */,
 				0B1A00051A2A3A4A5A6A7A8A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		221177262ED67B5F00B2CCC2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,10 +332,10 @@
 				228C211F2ED56D9100F0ACD5 /* PhotoAssetItem.swift in Sources */,
 				228C21202ED56D9100F0ACD5 /* SettingsView.swift in Sources */,
 				228C21212ED56D9100F0ACD5 /* SwipeViewModel.swift in Sources */,
-				228C21222ED56D9100F0ACD5 /* Sortir.xcdatamodeld in Sources */,
+				228C21222ED56D9100F0ACD5 /* Flipix.xcdatamodeld in Sources */,
 				228C21232ED56D9100F0ACD5 /* GlassCard.swift in Sources */,
 				228C21252ED56D9100F0ACD5 /* SettingsViewModel.swift in Sources */,
-				0B1A00001A2A3A4A5A6A7A8A /* SortirApp.swift in Sources */,
+				0B1A00001A2A3A4A5A6A7A8A /* FlipixApp.swift in Sources */,
 				AA1B00012EDB000000000001 /* WorkflowAction.swift in Sources */,
 				AA1B00012EDB000000000002 /* WorkflowListView.swift in Sources */,
 				AA1B00012EDB000000000003 /* WorkflowSetupView.swift in Sources */,
@@ -281,10 +343,26 @@
 				AA1B00012EDB000000000005 /* AlbumPickerView.swift in Sources */,
 				A11279D258C487439D4EBCBD /* AppConstants.swift in Sources */,
 				8AE66D25097CF9962CA9402D /* UnifiedSessionCompleteView.swift in Sources */,
+				AD1E0910A533B92245C8CC97 /* SessionMessageGenerator.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		221177242ED67B5F00B2CCC2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2211772D2ED67B5F00B2CCC2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0B1A00251A2A3A4A5A6A7A8A /* Flipix */;
+			targetProxy = 2211772C2ED67B5F00B2CCC2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		0B1A002B1A2A3A4A5A6A7A8A /* Debug */ = {
@@ -419,8 +497,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 82R659C5Z6;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Sortir/Info.plist;
+				INFOPLIST_FILE = Flipix/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -431,7 +510,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sortir.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flipix.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -446,8 +525,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 82R659C5Z6;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Sortir/Info.plist;
+				INFOPLIST_FILE = Flipix/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -458,7 +538,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sortir.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flipix.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -466,10 +546,61 @@
 			};
 			name = Release;
 		};
+		2211772E2ED67B5F00B2CCC2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 82R659C5Z6;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Flipix.FlipixTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flipix.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Flipix";
+			};
+			name = Debug;
+		};
+		2211772F2ED67B5F00B2CCC2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 82R659C5Z6;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Flipix.FlipixTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flipix.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Flipix";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0B1A00261A2A3A4A5A6A7A8A /* Build configuration list for PBXNativeTarget "Sortir" */ = {
+		0B1A00261A2A3A4A5A6A7A8A /* Build configuration list for PBXNativeTarget "Flipix" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0B1A002D1A2A3A4A5A6A7A8A /* Debug */,
@@ -478,7 +609,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0B1A002A1A2A3A4A5A6A7A8A /* Build configuration list for PBXProject "Sortir" */ = {
+		0B1A002A1A2A3A4A5A6A7A8A /* Build configuration list for PBXProject "Flipix" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0B1A002B1A2A3A4A5A6A7A8A /* Debug */,
@@ -487,16 +618,25 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		221177302ED67B5F00B2CCC2 /* Build configuration list for PBXNativeTarget "FlipixTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2211772E2ED67B5F00B2CCC2 /* Debug */,
+				2211772F2ED67B5F00B2CCC2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		228C21052ED56D9100F0ACD5 /* Sortir.xcdatamodeld */ = {
+		228C21052ED56D9100F0ACD5 /* Flipix.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				228C21182ED56D9100F0ACD5 /* Sortir.xcdatamodel */,
+				228C21182ED56D9100F0ACD5 /* Flipix.xcdatamodel */,
 			);
-			currentVersion = 228C21182ED56D9100F0ACD5 /* Sortir.xcdatamodel */;
-			path = Sortir.xcdatamodeld;
+			currentVersion = 228C21182ED56D9100F0ACD5 /* Flipix.xcdatamodel */;
+			path = Flipix.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

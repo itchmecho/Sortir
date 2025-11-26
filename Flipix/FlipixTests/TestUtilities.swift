@@ -1,6 +1,6 @@
 import Foundation
 import Photos
-@testable import Sortir
+@testable import Flipix
 
 /// Mock implementation of PhotosService for testing
 class MockPhotosService: PhotosService {
@@ -19,6 +19,26 @@ class MockPhotosService: PhotosService {
         authorizationRequested = true
         return true
     }
+
+    /// Override caching to be no-op in tests
+    override func startCachingImages(around assets: [PHAsset], centerIndex: Int) {
+        // No-op for testing
+    }
+
+    /// Override stop caching to be no-op in tests
+    override func stopCachingAllImages() {
+        // No-op for testing
+    }
+}
+
+/// Extension to create testable PhotoAssetItem with a unique mock ID
+extension PhotoAssetItem {
+    /// Creates a test photo item with a unique identifier
+    /// Use this instead of PHAsset() which cannot be instantiated directly
+    static func testItem(id: String = UUID().uuidString) -> PhotoAssetItem {
+        // Use the test initializer that accepts a custom id
+        return PhotoAssetItem(testId: id, asset: PHAsset())
+    }
 }
 
 /// Mock implementation of CoreDataService for testing
@@ -31,7 +51,7 @@ class MockCoreDataService: CoreDataService {
     var mockSessionId = UUID()
 
     /// Track session start
-    override func startSession(totalPhotos: Int, workflowId: UUID?) -> UUID? {
+    override func startSession(totalPhotos: Int, workflowId: UUID? = nil) -> UUID {
         sessionStarted = true
         return mockSessionId
     }
@@ -51,31 +71,10 @@ extension Workflow {
             name: "Test Workflow",
             leftAction: .delete(),
             rightAction: .keep(),
-            createdDate: Date(),
-            lastUsedDate: Date()
+            createdAt: Date(),
+            lastUsedAt: Date()
         )
     }
 }
 
-/// Test helper for creating workflow actions
-extension WorkflowAction {
-    /// Creates a delete action for testing
-    static func delete() -> WorkflowAction {
-        return WorkflowAction(
-            type: .delete,
-            displayName: "Delete",
-            icon: "trash.fill",
-            color: .red
-        )
-    }
-
-    /// Creates a keep action for testing
-    static func keep() -> WorkflowAction {
-        return WorkflowAction(
-            type: .keep,
-            displayName: "Keep",
-            icon: "checkmark.circle.fill",
-            color: .green
-        )
-    }
-}
+// Note: WorkflowAction already has .delete() and .keep() static methods in the main codebase

@@ -214,7 +214,7 @@ struct ActionTypeRow: View {
 
     private func descriptionFor(_ type: ActionType) -> String {
         switch type {
-        case .keep: return "Add to Sortir Kept album"
+        case .keep: return "Add to Flipix Kept album"
         case .delete: return "Move to Recently Deleted"
         case .moveToAlbum: return "Add to a specific album"
         case .favorite: return "Mark as favorite"

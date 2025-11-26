@@ -10,9 +10,9 @@
 		<dict/>
 	</dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Sortir needs access to your photos to help you organize them through swipe gestures.</string>
+	<string>Flipix needs access to your photos to help you organize them through swipe gestures.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Sortir needs permission to create albums and organize your photos.</string>
+	<string>Flipix needs permission to create albums and organize your photos.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 </dict>

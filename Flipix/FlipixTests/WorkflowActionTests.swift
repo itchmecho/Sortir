@@ -1,5 +1,6 @@
 import XCTest
-@testable import Sortir
+import SwiftUI
+@testable import Flipix
 
 /// Tests for WorkflowAction model and ActionType enum
 @MainActor

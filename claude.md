@@ -1,4 +1,4 @@
-# Sortir - Claude Project Guidelines
+# Flipix - Claude Project Guidelines
 
 **See workspace communication & development guidelines**: [../CLAUDE.md](../CLAUDE.md) and [../CLAUDE-GUIDELINES.md](../CLAUDE-GUIDELINES.md)
 
@@ -6,9 +6,9 @@ This file contains project-specific information. General guidelines are document
 
 ## Project Overview
 
-**Sortir** is a swipe-based photo workflow organization app for iOS/iPadOS. Users configure left/right gestures, then rapidly organize photo library selections into albums or deletion queues. The app transforms tedious photo library organization into a fluid, engaging experience perfect for post-shoot curation, album consolidation, and seasonal cleanup.
+**Flipix** is a swipe-based photo workflow organization app for iOS/iPadOS. Users configure left/right gestures, then rapidly organize photo library selections into albums or deletion queues. The app transforms tedious photo library organization into a fluid, engaging experience perfect for post-shoot curation, album consolidation, and seasonal cleanup.
 
-**Full technical specification:** [Sortir_Product_Brief.md](Sortir_Product_Brief.md)
+**Full technical specification:** [Flipix_Product_Brief.md](Flipix_Product_Brief.md)
 
 ## Key Features
 
@@ -33,14 +33,14 @@ This file contains project-specific information. General guidelines are document
 ## File Structure
 
 ```
-Sortir/
+Flipix/
 ├── CLAUDE.md                          # This file
-├── Sortir_Product_Brief.md            # Full technical specification
+├── Flipix_Product_Brief.md            # Full technical specification
 ├── roadmap.md                          # Development roadmap
 ├── scripts/
 │   └── add_swift_file.py              # Script to add files to Xcode project
-├── Sortir/
-│   ├── SortirApp.swift                # App entry point
+├── Flipix/
+│   ├── FlipixApp.swift                # App entry point
 │   ├── ContentView.swift              # Root view with permissions
 │   ├── SwipeAction.swift              # Legacy swipe action enum
 │   ├── PhotoAssetItem.swift           # Photo asset wrapper
@@ -64,7 +64,7 @@ Sortir/
 │   │   └── CoreDataService.swift      # CoreData operations
 │   ├── CoreData/
 │   │   ├── PersistenceController.swift
-│   │   └── Sortir.xcdatamodeld        # CoreData model
+│   │   └── Flipix.xcdatamodeld        # CoreData model
 │   └── Assets.xcassets/
 ```
 
@@ -81,13 +81,13 @@ Sortir/
 ### Running the App
 
 ```bash
-xcodebuild -scheme Sortir -destination 'platform=iOS Simulator,name=iPhone 17'
+xcodebuild -scheme Flipix -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
 
 ### Testing
 
 ```bash
-xcodebuild test -scheme Sortir -destination 'platform=iOS Simulator,name=iPhone 17'
+xcodebuild test -scheme Flipix -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
 
 ### Adding New Swift Files to Xcode Project
@@ -133,11 +133,11 @@ The script will:
 
 - **Device Sync:** Architecture designed for macOS app pairing via CloudKit
 - **Cloud Integration:** Settings page structure for future iCloud/Google Photos APIs
-- **Premium Features:** AI suggestions, batch metadata, smart albums, workflow templates, export as .sortir files
+- **Premium Features:** AI suggestions, batch metadata, smart albums, workflow templates, export as .flipix files
 
 ## Additional Resources
 
-- [Sortir Product Brief](Sortir_Product_Brief.md)
+- [Flipix Product Brief](Flipix_Product_Brief.md)
 - Apple PhotosUI Documentation
 - SwiftUI Glassmorphism Patterns (iOS 16+)
 

@@ -51,7 +51,7 @@ struct CacheConstants {
 /// Constants for album naming
 struct AlbumConstants {
     /// Default album name for photos the user chooses to keep
-    static let defaultKeepAlbumName = "Sortir Kept"
+    static let defaultKeepAlbumName = "Flipix Kept"
 }
 
 // MARK: - UI Strings

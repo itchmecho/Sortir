@@ -1,11 +1,11 @@
-# **SORTIR** — Photo Workflow Organization App
+# **FLIPIX** — Photo Workflow Organization App
 ## Product Brief & Technical Specification
 
 ---
 
 ## **Product Overview**
 
-**Name:** Sortir  
+**Name:** Flipix  
 **Platform:** iOS/iPadOS (MVP); groundwork for macOS, Windows future expansion  
 **Core Mechanic:** Swipe-based photo workflow organizer—users configure left/right gestures, then rapidly organize photo library selections into albums or deletion queues.
 
@@ -78,7 +78,7 @@
 | **Persistent Storage** | `CoreData` | Workflow definitions, metadata, history |
 | **Haptic Feedback** | `UIKit` (feedback) | UIImpactFeedbackGenerator, UISelectionFeedbackGenerator |
 | **Gesture Recognition** | `SwiftUI` Gestures | `.gesture()` modifiers for swipe detection |
-| **File/Export** | `UniformTypeIdentifiers` | Future export workflows as .sortir files |
+| **File/Export** | `UniformTypeIdentifiers` | Future export workflows as .flipix files |
 | **Settings/Preferences** | `@AppStorage` / `UserDefaults` | Simple local user preferences |
 | **macOS Compatibility (Future)** | `AppKit` + `SwiftUI` | Cross-platform data models in Swift |
 | **Sync Groundwork (Future)** | `CloudKit` or custom API | Comments flagging integration points |
@@ -119,7 +119,7 @@
 - **Batch Metadata:** Add tags, descriptions, or ratings to multiple photos
 - **Smart Albums:** Dynamic collections based on criteria (e.g., "all photos from last month")
 - **Workflow Templates:** Pre-built workflows (e.g., "Post-Vacation Cleanup," "Monthly Review")
-- **Export Workflows:** Share workflows with other users as `.sortir` files
+- **Export Workflows:** Share workflows with other users as `.flipix` files
 - **Advanced Gesture Options:** Custom swipe directions or multi-finger gestures
 - **Photo Comparison:** Side-by-side view of similar photos for easier triage
 

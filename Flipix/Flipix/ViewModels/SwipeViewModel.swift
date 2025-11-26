@@ -404,7 +404,7 @@ class SwipeViewModel: ObservableObject {
         }
 
         do {
-            // Handle "Keep" action - add to "Sortir Kept" album
+            // Handle "Keep" action - add to "Flipix Kept" album
             if !keptAssets.isEmpty {
                 if let album = try await photosService.createKeepAlbum() {
                     try await photosService.moveToAlbum(assets: keptAssets, album: album)

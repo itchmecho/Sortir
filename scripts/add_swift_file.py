@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Add Swift files to the Sortir Xcode project.
+Add Swift files to the Flipix Xcode project.
 
 Usage: python3 add_swift_file.py <filename> <group>
 
@@ -18,7 +18,7 @@ from datetime import datetime
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(SCRIPT_DIR)
-PBXPROJ = os.path.join(PROJECT_DIR, "Sortir/Sortir.xcodeproj/project.pbxproj")
+PBXPROJ = os.path.join(PROJECT_DIR, "Flipix/Flipix.xcodeproj/project.pbxproj")
 
 # Group IDs from the project file
 GROUP_IDS = {

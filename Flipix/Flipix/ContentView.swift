@@ -57,7 +57,7 @@ struct PermissionRequestView: View {
                 Text("Access Your Photos")
                     .font(.title2.bold())
 
-                Text("Sortir needs permission to read and organize your photo library.")
+                Text("Flipix needs permission to read and organize your photo library.")
                     .font(.body)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -101,7 +101,7 @@ struct PermissionDeniedView: View {
                 Text("Permission Denied")
                     .font(.title2.bold())
 
-                Text("Please enable photo library access in Settings to use Sortir.")
+                Text("Please enable photo library access in Settings to use Flipix.")
                     .font(.body)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)

@@ -36,7 +36,7 @@ struct HomeView: View {
                                 )
                             )
 
-                        Text("Sortir")
+                        Text("Flipix")
                             .font(.largeTitle.bold())
 
                         Text("Swipe to organize your photos")
